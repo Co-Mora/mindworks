@@ -33,12 +33,20 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+type Comment =  {
+    postId: number;
+    id: number;
+    name: string;
+    email: string;
+    body: string;
+}
+
 interface Props {
     fetchSinglePost: (number) => void;
     fetchPostComments: (number) => void;
     match: any;
     singlePost: any;
-    comments: any;
+    comments: [Comment];
 }
 const ViewSinglePost: React.FC<Props> = ({ match, comments, singlePost, fetchSinglePost, fetchPostComments }) => {
     const classes = useStyles();

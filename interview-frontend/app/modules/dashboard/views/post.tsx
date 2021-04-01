@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllPosts } from '../../action';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,24 +22,24 @@ const useStyles = makeStyles({
     }
 });
 
-
+type Post =  {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
 interface Props {
-    posts: any;
+    posts: [Post];
     fetchAllPosts: () => void;
 }
 const Post: React.FC<Props> = ({ posts, fetchAllPosts }) => {
     const classes = useStyles();
-
-    const [data, setData] = useState([]);
-
     useEffect(() => {
         fetchAllPosts();
-        console.log("data: ", posts);
-        setData(posts);
         return () => {
 
         };
-    }, [posts.length, data])
+    }, [posts.length])
     return (
         <div className={classes.container}>
             <TableContainer component={Paper}>
