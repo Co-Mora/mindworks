@@ -1,8 +1,12 @@
 import React from 'react';
-import Analytics from './modules/dashboard/views/analytics'
+import Navigation from './navigation'
+import configureStore from './modules/store';
+import { Provider } from 'react-redux'
 
 export const App: React.FC = () => {
     return (
-        <Analytics />
+        <Provider store={configureStore()}>
+            <Navigation />
+        </Provider >
     )
 };

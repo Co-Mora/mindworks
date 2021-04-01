@@ -1,15 +1,16 @@
 import axios from 'axios';
 const API = axios.create();
 
-API.defaults.baseURL = 'https://api-core.jomorder.com.my/api'
+API.defaults.baseURL = 'https://jsonplaceholder.typicode.com'
 
 export default {
-  forgotPassword: async () => {
-    return API.get(
-      ""
-    );
+  getPosts: async () => {
+    return API.get("/posts");
   },
-  getBranches: async () => {
-    return API.get("/merchant/branches?page=0");
+  getSinglePost: async (id) => {
+    return API.get(`/posts/${id}`);
   },
+  viewPostComments: async(id) => {
+    return API.get(`/comments?postId=${id}`)
+  }
 };  
