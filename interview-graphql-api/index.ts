@@ -1,6 +1,7 @@
 const { GraphQLServer } = require("graphql-yoga");
 import fetch from 'node-fetch';
 
+const url = "https://jsonplaceholder.typicode.com"
 const typeDefs = `
   type Query {
     getAllPosts(pge: Int!): [Post]
@@ -35,28 +36,28 @@ const resolvers = {
     },
     SinglePost: {
         comments: async parent => {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${parent.id}`);
+            const response = await fetch(`${url}/comments?postId=${parent.id}`);
             return response.json();
         },
     },
     Query: {
         getAllPosts: async (_, { pge }) => {
             let items = [];
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+            const response = await fetch(`${url}/posts`);
             const data = await response.json();
             for(let i = 0; i < pge; i++) items.push(data[i])
             
             return items;
         },
         getSinglePost: async (_, { id }) => {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+            const response = await fetch(`${url}/posts/${id}`);
             return response.json();
         },
         getCommentBySearch: async (_, { value }) => {
             let items = [];
             var myPattern = new RegExp('(\\w*' + value + '\\w*)', 'gi');
 
-            const response = await fetch(`https://jsonplaceholder.typicode.com/comments`);
+            const response = await fetch(`${url}/comments`);
             const data = await response.json();
             const searchKeys = ["name", "email", "body"]
             data.map((el) => {
